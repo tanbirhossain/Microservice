@@ -24,3 +24,12 @@ namespace CustomerService.API
                 });
     }
 }
+
+
+//Install-Package Microsoft.EntityFrameworkCore.SqlServer
+//Install-Package Microsoft.EntityFrameworkCore.Tools
+//Install-Package Microsoft.EntityFrameworkCore.Design
+
+////Scaffold-DbContext "Server=DESKTOP-1TP3BJN\MSSQLSERVER02;Database=ReservationDB;user id=sa;password=123456789;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DB -f -UseDatabaseNames
+//Scaffold-DbContext "Server=localhost;Database=ReservationDB;user id=sa;password=123456789;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DB -f -UseDatabaseNames
+//Scaffold-DbContext "Server=192.168.0.250,52149;Database=CustomerDB;user id=sa;password=123456789;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModel -f -UseDatabaseNames

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Customer.API.DBModel;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,18 +9,48 @@ namespace CustomerService.API.Repository
 {
     public interface ICustomerRepository
     {
-        Task<string> GetCustomers();
+        Task<tbl_Customer> Add(tbl_Customer customer);
+        Task<tbl_Customer> GetById(long id);
+        Task<List<tbl_Customer>> GetCustomers();
+        Task<tbl_Customer> RemoveById(long id);
+        Task<tbl_Customer> Update(tbl_Customer customer);
     }
     public class CustomerRepository : ICustomerRepository
     {
-        public CustomerRepository()
-        {
+        private readonly CustomerDBContext _db;
 
+        public CustomerRepository(CustomerDBContext db)
+        {
+            _db = db;
         }
-
-        public async Task<string> GetCustomers()
+        public async Task<List<tbl_Customer>> GetCustomers()
         {
-            return "All Customers List";
+            return await _db.tbl_Customers.ToListAsync();
+        }
+        public async Task<tbl_Customer> Add(tbl_Customer customer)
+        {
+            var result = await _db.AddAsync(customer);
+            await _db.SaveChangesAsync();
+            return result.Entity;
+        }
+        public async Task<tbl_Customer> Update(tbl_Customer customer)
+        {
+            var result = await _db.tbl_Customers.Where(e => e.Id == customer.Id).FirstOrDefaultAsync();
+            result.Name = customer.Name;
+            result.DOB = customer.DOB;
+            await _db.SaveChangesAsync();
+            return result;
+        }
+        public async Task<tbl_Customer> GetById(long id)
+        {
+            var result = await _db.tbl_Customers.Where(e => e.Id == id).FirstOrDefaultAsync();
+            return result;
+        }
+        public async Task<tbl_Customer> RemoveById(long id)
+        {
+            var result = await _db.tbl_Customers.Where(e => e.Id == id).FirstOrDefaultAsync();
+            _db.Remove(result);
+            return result;
         }
     }
 
