@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace CustomerService.API.Controllers
 {
     [ApiController]
-    [Route("[controller]/[action]")]
+    [Route("api/[controller]/[action]")]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;

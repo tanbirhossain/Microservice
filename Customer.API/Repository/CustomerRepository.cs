@@ -1,7 +1,10 @@
 ﻿using Customer.API.DBModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,6 +55,9 @@ namespace CustomerService.API.Repository
             _db.Remove(result);
             return result;
         }
+    
     }
+  
 
 }
+

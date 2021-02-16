@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
 using Customer.API.DBModel;
+using Microsoft.EntityFrameworkCore;
+using Customer.API.Repository;
 
 namespace CustomerService.API
 {
@@ -26,12 +28,26 @@ namespace CustomerService.API
         {
             services.AddControllers();
 
-
-            //IOC
+            // IOC
             services.AddTransient<ICustomerService, CustomerService.API.Service.CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddDbContext<CustomerDBContext>();
-            //Automapper
+            services.AddTransient<ISeedRepository, CustomerDBSeedRepository>();
+
+            // Config           
+            var _customerConnection = Configuration.GetConnectionString("CustomerDBConnection");
+            services.AddDbContext<CustomerDBContext>(option =>
+                option.UseSqlServer(_customerConnection)
+            );
+
+            // seed
+            var serviceProvider = services.BuildServiceProvider();
+            if (serviceProvider != null)
+            {
+                var _customerRepository = serviceProvider.GetService<ISeedRepository>();
+                _customerRepository.DoSeed();
+            }
+
+            // Automapper
             services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
             // open api
