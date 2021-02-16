@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Customer.API.DBModel;
+using Customer.API.Database;
 using Customer.API.ViewModel;
 using CustomerService.API.Repository;
 using System.Collections.Generic;

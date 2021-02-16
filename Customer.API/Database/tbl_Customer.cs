@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace Customer.API.DBModel
+namespace Customer.API.Database
 {
     public partial class tbl_Customer
     {

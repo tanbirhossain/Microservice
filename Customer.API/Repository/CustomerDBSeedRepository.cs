@@ -1,4 +1,4 @@
-﻿using Customer.API.DBModel;
+﻿using Customer.API.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,18 +16,21 @@ namespace Customer.API.Repository
         {
             using (var _context = new CustomerDBContext())
             {
+
                 try
                 {
-                    if (_context.tbl_Customers.Any())
+                    //  check database already created or not
+                    if (_context.Database.CanConnect())
                     {
                         return;
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
-
+                    Console.WriteLine("Database cannot connected..... . ");
+                    Console.WriteLine("Ensure your database connection");
+                    throw ex;
                 }
-           
 
                 _context.Database.EnsureCreated();
 

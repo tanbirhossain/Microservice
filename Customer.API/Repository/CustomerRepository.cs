@@ -1,4 +1,4 @@
-﻿using Customer.API.DBModel;
+﻿using Customer.API.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;

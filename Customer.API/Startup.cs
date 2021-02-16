@@ -8,9 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
-using Customer.API.DBModel;
+using Customer.API.Database;
 using Microsoft.EntityFrameworkCore;
 using Customer.API.Repository;
+using Customer.API.Services;
 
 namespace CustomerService.API
 {
@@ -32,23 +33,24 @@ namespace CustomerService.API
             services.AddTransient<ICustomerService, CustomerService.API.Service.CustomerService>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ISeedRepository, CustomerDBSeedRepository>();
+            services.AddTransient<ISeedService, CustomerSeedService>();
 
             // Config           
             var _customerConnection = Configuration.GetConnectionString("CustomerDBConnection");
             services.AddDbContext<CustomerDBContext>(option =>
                 option.UseSqlServer(_customerConnection)
             );
+         
+            // Automapper
+            services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
             // seed
             var serviceProvider = services.BuildServiceProvider();
             if (serviceProvider != null)
             {
-                var _customerRepository = serviceProvider.GetService<ISeedRepository>();
+                var _customerRepository = serviceProvider.GetService<ISeedService>();
                 _customerRepository.DoSeed();
             }
-
-            // Automapper
-            services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
             // open api
             services.AddSwaggerGen(c =>

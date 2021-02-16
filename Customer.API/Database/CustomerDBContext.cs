@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace Customer.API.DBModel
+namespace Customer.API.Database
 {
     public partial class CustomerDBContext : DbContext
     {
