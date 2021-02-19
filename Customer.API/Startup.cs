@@ -12,7 +12,9 @@ using Customer.API.Database;
 using Microsoft.EntityFrameworkCore;
 using Customer.API.Repository;
 using Customer.API.Services;
-
+using Customer.API.IOC;
+using System.Reflection;
+using MediatR;
 namespace CustomerService.API
 {
     public class Startup
@@ -29,12 +31,12 @@ namespace CustomerService.API
         {
             services.AddControllers();
 
-            // IOC
-            services.AddTransient<ICustomerService, CustomerService.API.Service.CustomerService>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<ISeedRepository, CustomerDBSeedRepository>();
-            services.AddTransient<ISeedService, CustomerSeedService>();
+            // Register Mediator
+            services.AddMediatR(Assembly.GetExecutingAssembly());
 
+            // IOC
+            services.IOCBuild();
+            
             // Config           
             var _customerConnection = Configuration.GetConnectionString("CustomerDBConnection");
             services.AddDbContext<CustomerDBContext>(option =>
@@ -44,14 +46,6 @@ namespace CustomerService.API
             // Automapper
             services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
-            // seed
-            var serviceProvider = services.BuildServiceProvider();
-            if (serviceProvider != null)
-            {
-                var _customerRepository = serviceProvider.GetService<ISeedService>();
-                _customerRepository.DoSeed();
-            }
-
             // open api
             services.AddSwaggerGen(c =>
             {
@@ -60,7 +54,7 @@ namespace CustomerService.API
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedService _seedService)
         {
             if (env.IsDevelopment())
             {
@@ -79,6 +73,10 @@ namespace CustomerService.API
             {
                 endpoints.MapControllers();
             });
+
+
+            // Ensure database
+            _seedService.DoSeed();
         }
     }
 }

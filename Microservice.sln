@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.API", "Customer.API\Customer.API.csproj", "{B33F7D5B-EA74-4443-BC9E-3641293F213E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.API", "Customer.API\Customer.API.csproj", "{B33F7D5B-EA74-4443-BC9E-3641293F213E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CustomerService", "CustomerService", "{62774132-0500-488D-9A27-58A00E25743B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{1C8A32F3-887D-4DFD-A3B5-00FC5EC421AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.API.Test", "Customer.API.Test\Customer.API.Test.csproj", "{79659D60-67FA-4648-A32E-E5CD646037CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{B33F7D5B-EA74-4443-BC9E-3641293F213E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B33F7D5B-EA74-4443-BC9E-3641293F213E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B33F7D5B-EA74-4443-BC9E-3641293F213E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79659D60-67FA-4648-A32E-E5CD646037CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79659D60-67FA-4648-A32E-E5CD646037CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79659D60-67FA-4648-A32E-E5CD646037CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79659D60-67FA-4648-A32E-E5CD646037CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B33F7D5B-EA74-4443-BC9E-3641293F213E} = {62774132-0500-488D-9A27-58A00E25743B}
+		{79659D60-67FA-4648-A32E-E5CD646037CC} = {1C8A32F3-887D-4DFD-A3B5-00FC5EC421AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D3C2D528-71A7-473C-861F-B543ABD5F4F8}

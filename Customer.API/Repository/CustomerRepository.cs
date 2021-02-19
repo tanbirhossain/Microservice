@@ -28,7 +28,7 @@ namespace CustomerService.API.Repository
         }
         public async Task<List<tbl_Customer>> GetCustomers()
         {
-            return await _db.tbl_Customers.ToListAsync();
+            return await _db.tbl_Customers.OrderByDescending(e=>e.Id).ToListAsync();
         }
         public async Task<tbl_Customer> Add(tbl_Customer customer)
         {
