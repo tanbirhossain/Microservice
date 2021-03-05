@@ -1,13 +1,6 @@
-﻿
-using Customer.API.RequestModels.CommandRequestModels;
-using Customer.API.RequestModels.QueryRequestModels;
+﻿using Customer.API.ViewModel;
 using CustomerService.API.Service;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Customer.API.Controllers
@@ -16,21 +9,29 @@ namespace Customer.API.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public CustomerController(IMediator mediator)
+        private readonly ICustomerService _customerService;
+
+        public CustomerController(ICustomerService customerService)
         {
-            _mediator = mediator;
+            _customerService = customerService;
         }
+
         [HttpPost]
-        public async Task<IActionResult> Add(AddCustomerRequestModel customer)
+        public async Task<IActionResult> Add(CustomerViewModel customer)
         {
-            return Ok(await _mediator.Send(customer));
+            return Ok(await _customerService.Add(customer));
         }
+        
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var request = new GetAllCustomersRequestModel();
-            return Ok(await _mediator.Send(request));
+            return Ok(await _customerService.GetCustomers());
+        }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetById(long id)
+        {
+            return Ok(await _customerService.GetById(id));
         }
     }
 }

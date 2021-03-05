@@ -1,5 +1,11 @@
-﻿using Customer.API.RequestModels.QueryRequestModels;
-using MediatR;
+﻿using AutoMapper;
+using Customer.API.Controllers;
+using Customer.API.Database;
+using Customer.API.Mapper;
+using Customer.API.ViewModel;
+using CustomerService.API.Repository;
+using CustomerService.API.Service;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,20 +16,53 @@ using Xunit;
 
 namespace Customer.API.Test.v1
 {
-   public class CustomerController_Test
+    public class CustomerController_Test
     {
-        private Mock<IMediator> _mediator;
+       private IMapper _mapper;
         public CustomerController_Test()
         {
-            _mediator = new Mock<IMediator>();
+            // auto mapper configuration
+            var mockMapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutomapperProfile());
+            });
+            _mapper = mockMapper.CreateMapper();
+        }
+        [Fact]
+        public async Task GetAllCusotmer_testAsync()
+        {
+            // arrange
+
+            // mock object
+            var customerRepoMock = new Mock<ICustomerRepository>();
+            // mock data
+            var customerMockData = new tbl_Customer
+            {
+                Id = 2,
+                Name = "Kashem",
+                DOB = null
+            };
+            customerRepoMock.Setup(e => e.GetById(2)).ReturnsAsync(customerMockData);
+
+
+            ICustomerService _customerSevice = new CustomerService.API.Service.CustomerService(_mapper, customerRepoMock.Object);
+            var controller = new CustomerController(_customerSevice);
+
+
+            // Act
+            var result = await controller.GetById(2);
+
+            // Assert
+            var okResult = result as OkObjectResult;
+            if (okResult != null)
+                Assert.NotNull(okResult);
+
+            var customerVM = okResult.Value as CustomerViewModel;
+            var expected = customerMockData.Name;
+            var actual = customerVM.Name;
+            Assert.Equal(expected, actual);
+
         }
 
-        //[Fact]
-        //public void GetAllCustomers_Test()
-        //{
-        //    var request = new GetAllCustomersRequestModel();
-        //    _mediator.Setup(x => x.Send(It.IsAny<GetAllCustomersRequestModel>(), new System.Threading.CancellationToken()))
-        //        .ReturnsAsync(new );
-        //}
     }
 }
