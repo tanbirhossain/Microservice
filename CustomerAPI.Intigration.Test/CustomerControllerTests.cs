@@ -19,7 +19,6 @@ namespace CustomerAPI.Intigration.Test
             // Arrange
             //await AuthenticateAsync();
 
-
             // Act
             var response = await _testClient.GetAsync(ApiRoutes.Customer.GetAll);
             var returnedPost = await response.Content.ReadAsAsync<List<CustomerViewModel>>();
@@ -29,7 +28,7 @@ namespace CustomerAPI.Intigration.Test
 
         } 
         [Theory]
-        [InlineData(7)]
+        [InlineData(1)]
         public async Task GetCustomer_InputId_ReturnSingleCustomerResponse(long id)
         {
             // Arrange

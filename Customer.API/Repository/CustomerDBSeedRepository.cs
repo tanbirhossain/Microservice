@@ -19,10 +19,18 @@ namespace Customer.API.Repository
 
                 try
                 {
+
                     //  check database already created or not
-                    if (_context.Database.CanConnect())
+                    if (!_context.Database.CanConnect())
+                    {
+                        Console.WriteLine("Database cannot connected..... . ");
+                    }
+
+
+                    if (_context.tbl_Customers.Any())
                     {
                         return;
+
                     }
                 }
                 catch (Exception ex)
@@ -37,11 +45,10 @@ namespace Customer.API.Repository
                 // tbl_Customer
                 if (!_context.tbl_Customers.Any())
                 {
-                    _context.tbl_Customers.AddRange(
-                        new tbl_Customer { Name = "Ovi" },
-                        new tbl_Customer { Name = "Kashem" }
-                        );
-
+                    var result = _context.tbl_Customers.Add(
+                           new tbl_Customer { Name = "Ovi" }
+                           );
+                   var _result = result.Entity;
                     _context.SaveChanges();
                 }
 

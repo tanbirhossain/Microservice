@@ -53,14 +53,18 @@ namespace CustomerService.API
             services.AddDbContext<CustomerDBContext>(option =>
             {
                 option.UseSqlServer(_customerDBConnection);
-              
+
             });
 
-            services.AddDbContext<CustomerDBContext>();
-            services.AddDbContext<CustomerDBContext>(
-      options => options.UseSqlServer(_customerDBConnection));
+            //services.AddDbContext<CustomerDBContext>(options =>
+            //{
+            //    options.UseInMemoryDatabase("InMemoryDbForTesting");
+            //});
 
-
+            // Ensure database
+            var scopedServices = services.BuildServiceProvider();
+            var _seedService = scopedServices.GetRequiredService<ISeedService>();
+            _seedService.DoSeed();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,8 +89,6 @@ namespace CustomerService.API
             });
 
 
-            // Ensure database
-            _seedService.DoSeed();
         }
     }
 }

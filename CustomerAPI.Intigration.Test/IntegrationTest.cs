@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
+using System.Linq;
 
 namespace CustomerAPI.Intigration.Test
 {
@@ -21,37 +22,16 @@ namespace CustomerAPI.Intigration.Test
                     {
 
 
-                        //        var descriptor = services.SingleOrDefault(
-                        //d => d.ServiceType ==
-                        //    typeof(DbContextOptions<CustomerDBContext>));
+                        var descriptor = services.SingleOrDefault(
+                d => d.ServiceType ==
+                    typeof(DbContextOptions<CustomerDBContext>));
 
-                        //        services.Remove(descriptor);
+                        services.Remove(descriptor);
 
                         services.AddDbContext<CustomerDBContext>(options =>
                         {
                             options.UseInMemoryDatabase("InMemoryDbForTesting");
                         });
-
-                        //var sp = services.BuildServiceProvider();
-
-                        //using (var scope = sp.CreateScope())
-                        //{
-                        //    var scopedServices = scope.ServiceProvider;
-                        //    var db = scopedServices.GetRequiredService<CustomerDBContext>();
-                        //    //var logger = scopedServices
-                        //    //    .GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
-                        //    var _seedRepository = scopedServices.GetRequiredService<ISeedRepository>();
-                        //    //db.Database.EnsureCreated();
-
-                        //    try
-                        //    {
-                        //        _seedRepository.DoSeed();
-                        //    }
-                        //    catch (Exception ex)
-                        //    {
-                        //        Console.WriteLine(ex.Message);
-                        //    }
-                        //}
 
                     });
                 });
