@@ -36,13 +36,9 @@ namespace CustomerService.API
 
             // IOC
             services.IOCBuild();
-            
-            // Config           
-            var _customerConnection = Configuration.GetConnectionString("CustomerDBConnection");
-            services.AddDbContext<CustomerDBContext>(option =>
-                option.UseSqlServer(_customerConnection)
-            );
-         
+
+
+
             // Automapper
             services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
@@ -51,6 +47,20 @@ namespace CustomerService.API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Customer.API", Version = "v1" });
             });
+
+            // Config               
+            var _customerDBConnection = Configuration.GetConnectionString("CustomerDBConnection");
+            services.AddDbContext<CustomerDBContext>(option =>
+            {
+                option.UseSqlServer(_customerDBConnection);
+              
+            });
+
+            services.AddDbContext<CustomerDBContext>();
+            services.AddDbContext<CustomerDBContext>(
+      options => options.UseSqlServer(_customerDBConnection));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

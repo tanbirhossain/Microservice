@@ -3,6 +3,7 @@ using Customer.API.Repository;
 using Customer.API.Services;
 using CustomerService.API.Repository;
 using CustomerService.API.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Customer.API.IOC
@@ -15,7 +16,7 @@ namespace Customer.API.IOC
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ISeedRepository, CustomerDBSeedRepository>();
             services.AddTransient<ISeedService, CustomerSeedService>();
-
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             // cutomer handler
             //services.AddTransient<IAddCustomerCommandHandler, AddCustomerCommandHandler>();
