@@ -52,7 +52,7 @@ namespace CustomerService.API.Service
 
         public async Task<CustomerViewModel> Update(CustomerViewModel customer)
         {
-            var result = await _customerRepository.Add(_mapper.Map<tbl_Customer>(customer));
+            var result = await _customerRepository.Update(_mapper.Map<tbl_Customer>(customer));
             return _mapper.Map<CustomerViewModel>(result);
         }
     }

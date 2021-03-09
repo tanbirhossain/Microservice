@@ -53,6 +53,7 @@ namespace CustomerService.API.Repository
         {
             var result = await _db.tbl_Customers.Where(e => e.Id == id).FirstOrDefaultAsync();
             _db.Remove(result);
+            await _db.SaveChangesAsync();
             return result;
         }
     
