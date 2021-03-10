@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2019-latest"
+    container_name: sqlserver
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      #- MSSQL_PID=Developer
+      - SA_PASSWORD=8jkGh47hnDw89Haq8LN2
+    ports:
+      - "1434:1433"
+
+  customer.api:
+    image: customerapi:latest
+    build:
+      context: .
+      dockerfile: Customer.API/Dockerfile
+    depends_on:
+      - sqlserver
+    ports:
+      - "32789:80"
+      - "32788:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+volumes:
+  sqlserverdata:
+    #external: true   

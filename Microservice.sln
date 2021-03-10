@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomerAPI.Intigration.Tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{79925637-FD17-4862-ABE7-93B46678EF50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Customer.WEB", "Customer.WEB\Customer.WEB.csproj", "{8BBDF63B-4222-45D8-801D-902F5924F6ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Customer.WEB", "Customer.WEB\Customer.WEB.csproj", "{8BBDF63B-4222-45D8-801D-902F5924F6ED}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{78E0AB78-C23B-438E-9608-4790CE656F2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{8BBDF63B-4222-45D8-801D-902F5924F6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BBDF63B-4222-45D8-801D-902F5924F6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BBDF63B-4222-45D8-801D-902F5924F6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78E0AB78-C23B-438E-9608-4790CE656F2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78E0AB78-C23B-438E-9608-4790CE656F2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78E0AB78-C23B-438E-9608-4790CE656F2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78E0AB78-C23B-438E-9608-4790CE656F2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

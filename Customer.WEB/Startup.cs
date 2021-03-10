@@ -24,15 +24,17 @@ namespace Customer.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var _cutomerapi = Configuration.GetSection("CustomerService:ApiURL");
             services.AddControllersWithViews();
 
             // Customer API
             services.AddHttpClient(ApiRoutes.CustomerServiceName, c =>
             {
-                c.BaseAddress = new Uri("https://localhost:5001/");
+                c.BaseAddress = new Uri($"{_cutomerapi.Value}");
                 // Github API versioning
-                c.DefaultRequestHeaders.Add("Authorization", "bearer -----");
-            });
+                //c.DefaultRequestHeaders.Add("Authorization",  "bearer -----");
+            }); 
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
