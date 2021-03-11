@@ -2,6 +2,7 @@
 using Customer.API.ViewModel;
 using CustomerService.API.Service;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
 namespace Customer.API.Controllers
@@ -11,10 +12,12 @@ namespace Customer.API.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
+        private readonly IConfiguration _configuration;
 
-        public CustomerController(ICustomerService customerService)
+        public CustomerController(ICustomerService customerService, IConfiguration configuration)
         {
             _customerService = customerService;
+            _configuration = configuration;
         }
 
         [HttpPost(ApiRoutes.Customer.Add)]
@@ -45,5 +48,13 @@ namespace Customer.API.Controllers
         {
             return Ok(await _customerService.RemoveById(id));
         }
+
+        [HttpGet("test")]
+        public async Task<IActionResult> Test()
+        {
+            var conn = _configuration["ConnectionStrings:CustomerDBConnection"];
+            return Ok(new { conn });
+        }
+
     }
 }

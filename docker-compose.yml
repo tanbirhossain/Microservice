@@ -10,8 +10,9 @@ services:
       - ACCEPT_EULA=Y
       #- MSSQL_PID=Developer
       - SA_PASSWORD=8jkGh47hnDw89Haq8LN2
+    restart: always
     ports:
-      - "1434:1433"
+      - "1435:1433"
 
   customer.api:
     image: customerapi:latest
@@ -21,10 +22,23 @@ services:
     depends_on:
       - sqlserver
     ports:
-      - "32789:80"
-      - "32788:443"
+      - "5100:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=8jkGh47hnDw89Haq8LN2
+      #- ConnectionString=${Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word}
+  customer.web:
+    image: customerweb:latest
+    build:
+      context: .
+      dockerfile: Customer.WEB/Dockerfile
+    depends_on:
+      - customer.api
+    ports:
+      - "6100:80"
+    environment:
+      - CustomerService__ApiURL=http://customer.api
+
+
 volumes:
   sqlserverdata:
-    #external: true   
+#    #external: true   

@@ -24,13 +24,14 @@ namespace Customer.WEB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var _cutomerapi = Configuration.GetSection("CustomerService:ApiURL");
+            var _cutomerapi = Configuration["CustomerService:ApiURL"];
+            //var _cutomerapi = Configuration.GetSection("CustomerService:ApiURL");
             services.AddControllersWithViews();
 
             // Customer API
             services.AddHttpClient(ApiRoutes.CustomerServiceName, c =>
             {
-                c.BaseAddress = new Uri($"{_cutomerapi.Value}");
+                c.BaseAddress = new Uri($"{_cutomerapi}/");
                 // Github API versioning
                 //c.DefaultRequestHeaders.Add("Authorization",  "bearer -----");
             }); 
@@ -61,7 +62,7 @@ namespace Customer.WEB
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Customer}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

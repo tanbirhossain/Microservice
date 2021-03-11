@@ -56,11 +56,13 @@ namespace CustomerService.API
 
             });
 
-            //services.AddDbContext<CustomerDBContext>(options =>
-            //{
-            //    options.UseInMemoryDatabase("InMemoryDbForTesting");
-            //});
-
+            System.Console.WriteLine("=================================================== ");
+            System.Console.WriteLine("                                                     ");
+            System.Console.WriteLine("       Conn : " + _customerDBConnection);
+            System.Console.WriteLine("                                                     ");
+            System.Console.WriteLine("=================================================== ");
+         
+           
             // Ensure database
             var scopedServices = services.BuildServiceProvider();
             var _seedService = scopedServices.GetRequiredService<ISeedService>();
@@ -77,7 +79,7 @@ namespace CustomerService.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer.API v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
