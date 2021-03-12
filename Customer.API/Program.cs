@@ -1,5 +1,11 @@
+using Customer.API.Database;
+using Customer.API.Repository;
+using Customer.API.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace CustomerService.API
 {
@@ -8,6 +14,7 @@ namespace CustomerService.API
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -18,12 +25,6 @@ namespace CustomerService.API
                 });
     }
 }
-// Arrange
-
-
-// Act
-
-// Assert
 
 
 

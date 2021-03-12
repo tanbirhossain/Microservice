@@ -37,8 +37,6 @@ namespace CustomerService.API
             // IOC
             services.IOCBuild();
 
-
-
             // Automapper
             services.AddAutoMapper(typeof(AutomapperProfile).Assembly);
 
@@ -61,16 +59,10 @@ namespace CustomerService.API
             System.Console.WriteLine("       Conn : " + _customerDBConnection);
             System.Console.WriteLine("                                                     ");
             System.Console.WriteLine("=================================================== ");
-         
-           
-            // Ensure database
-            var scopedServices = services.BuildServiceProvider();
-            var _seedService = scopedServices.GetRequiredService<ISeedService>();
-            _seedService.DoSeed();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ISeedService _seedService)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CustomerDBContext context)
         {
             if (env.IsDevelopment())
             {
@@ -79,7 +71,7 @@ namespace CustomerService.API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Customer.API v1"));
             }
 
-            //app.UseHttpsRedirection();
+            //app.usehttpsredirection();
 
             app.UseRouting();
 
@@ -91,6 +83,8 @@ namespace CustomerService.API
             });
 
 
+            // seed database
+            DbInitializer.Initialize(context);
         }
     }
 }

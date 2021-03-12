@@ -12,12 +12,10 @@ namespace Customer.API.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _customerService;
-        private readonly IConfiguration _configuration;
 
-        public CustomerController(ICustomerService customerService, IConfiguration configuration)
+        public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-            _configuration = configuration;
         }
 
         [HttpPost(ApiRoutes.Customer.Add)]
@@ -47,13 +45,6 @@ namespace Customer.API.Controllers
         public async Task<IActionResult> RemoveById(long id)
         {
             return Ok(await _customerService.RemoveById(id));
-        }
-
-        [HttpGet("test")]
-        public async Task<IActionResult> Test()
-        {
-            var conn = _configuration["ConnectionStrings:CustomerDBConnection"];
-            return Ok(new { conn });
         }
 
     }

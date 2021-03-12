@@ -14,45 +14,74 @@ namespace Customer.API.Repository
     {
         public void DoSeed()
         {
-            using (var _context = new CustomerDBContext())
+            //using (var _context = new CustomerDBContext())
+            //{
+            //    try
+            //    {
+            //        Console.WriteLine(" >>>>  Start  Database migration  <<<<<");
+            //        _context.Database.EnsureCreated();
+            //        // Look for any customer.
+            //        if (_context.tbl_Customers.Any())
+            //        {
+            //            Console.WriteLine(" >>>>  Completed  Database migration : Already exits  <<<<<");
+            //            return;   // DB has been seeded
+            //        }
+
+            //        // tbl_Customer
+
+            //        var result = _context.tbl_Customers.Add(
+            //               new tbl_Customer { Name = "Ovi" }
+            //               );
+            //        var _result = result.Entity;
+            //        _context.SaveChanges();
+
+
+            //        Console.WriteLine(" >>>>  Completed  Database migration  <<<<<");
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //        throw;
+            //    }
+
+
+            //}
+
+        }
+    }
+
+    public static class DbInitializer
+    {
+        public static void Initialize(CustomerDBContext context)
+        {
+            Console.WriteLine(" >>>>  Start  Database migration  <<<<<");
+
+            try
             {
+                context.Database.EnsureCreated();
 
-                try
+                // Look for any students.
+                if (context.tbl_Customers.Any())
                 {
-
-                    //  check database already created or not
-                    if (!_context.Database.CanConnect())
-                    {
-                        Console.WriteLine("Database cannot connected..... . ");
-                    }
-
-
-                    if (_context.tbl_Customers.Any())
-                    {
-                        return;
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Database cannot connected..... . ");
-                    Console.WriteLine("Ensure your database connection");
-                    throw ex;
+                    return;   // DB has been seeded
                 }
 
-                _context.Database.EnsureCreated();
-
-                // tbl_Customer
-                if (!_context.tbl_Customers.Any())
-                {
-                    var result = _context.tbl_Customers.Add(
-                           new tbl_Customer { Name = "Ovi" }
-                           );
-                   var _result = result.Entity;
-                    _context.SaveChanges();
-                }
-
+                var result = context.tbl_Customers.Add(
+                              new tbl_Customer { Name = "Ovi" }
+                              );
+                var _result = result.Entity;
+                context.SaveChanges();
+                Console.WriteLine(" >>>>  Completed  Database migration  <<<<<");
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(" >>>>  EXception  <<<<<"+ ex);
+
+                throw;
+            }
+            
+
+            //Console.WriteLine(" >>>>  Completed  Database migration  <<<<<");
         }
     }
 }

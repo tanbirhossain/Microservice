@@ -21,11 +21,12 @@ services:
       dockerfile: Customer.API/Dockerfile
     depends_on:
       - sqlserver
+    restart: always
     ports:
       - "5100:80"
     environment:
-      - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=8jkGh47hnDw89Haq8LN2
-      #- ConnectionString=${Server=sqldata;Database=Microsoft.eShopOnContainers.Services.CatalogDb;User Id=sa;Password=Pass@word}
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=8jkGh47hnDw89Haq8LN2;
   customer.web:
     image: customerweb:latest
     build:
@@ -36,9 +37,10 @@ services:
     ports:
       - "6100:80"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Production
       - CustomerService__ApiURL=http://customer.api
 
 
 volumes:
   sqlserverdata:
-#    #external: true   
+    #external: true   
