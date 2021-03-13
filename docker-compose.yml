@@ -8,7 +8,7 @@ services:
       - sqlserverdata:/var/opt/mssql
     environment:
       - ACCEPT_EULA=Y
-      #- MSSQL_PID=Developer
+      - MSSQL_PID=Developer
       - SA_PASSWORD=8jkGh47hnDw89Haq8LN2
     restart: always
     ports:
@@ -27,6 +27,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=8jkGh47hnDw89Haq8LN2;
+  
   customer.web:
     image: customerweb:latest
     build:
