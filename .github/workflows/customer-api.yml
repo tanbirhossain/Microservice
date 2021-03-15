@@ -4,20 +4,20 @@ on:
   push:
     branches: 
     - master
-    
-    paths:
-    - Customer.API/**
-    - .github/workflows/customer-api.yml
-  
   pull_request:
     branches:
     - master
-    
-    paths:
-    - Customer.API/**
-    - .github/workflows/customer-api.yml
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      tags:
+        description: 'Test scenario tags'  
 
 jobs:
+   
   build:
 
     runs-on: ubuntu-latest
@@ -40,3 +40,5 @@ jobs:
     - name: Intigration Test
       run: dotnet test
       working-directory: ./CustomerAPI.Intigration.Test
+      
+    
