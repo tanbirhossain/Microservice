@@ -37,3 +37,6 @@ jobs:
     - name: Unit Test
       run: dotnet test
       working-directory: ./Customer.API.Test
+    - name: Intigration Test
+      run: dotnet test
+      working-directory: ./CustomerAPI.Intigration.Test
