@@ -33,7 +33,7 @@ jobs:
       run: dotnet build
       working-directory: ./Customer.WEB
     - name: Publish
-      run: dotnet publish --configuration Release --output ./publish
+      run: dotnet publish --configuration Release
       working-directory: ./Customer.WEB
       
       
