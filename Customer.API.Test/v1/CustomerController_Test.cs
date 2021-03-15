@@ -7,10 +7,6 @@ using CustomerService.API.Repository;
 using CustomerService.API.Service;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -62,14 +58,6 @@ namespace Customer.API.Test.v1
             var actual = customerVM.Name;
             Assert.Equal(expected, actual);
         }
-        [Fact]
-        public void CI_test()
-        {
-            // arrange
-
-            // mock object
-            
-            Assert.Equal(1, 2);
-        }
+       
     }
 }
