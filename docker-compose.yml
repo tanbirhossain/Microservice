@@ -10,7 +10,6 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
       - SA_PASSWORD=8jkGh47hnDw89Haq8LN2
-    restart: always
     ports:
       - "1435:1433"
 
@@ -21,7 +20,7 @@ services:
       dockerfile: Customer.API/Dockerfile
     depends_on:
       - sqlserver
-    restart: always
+    restart: on-failure
     ports:
       - "5100:80"
     environment:
@@ -37,6 +36,7 @@ services:
       - customer.api
     ports:
       - "6100:80"
+    restart: on-failure
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - CustomerService__ApiURL=http://customer.api

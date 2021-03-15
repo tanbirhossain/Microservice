@@ -24,6 +24,7 @@ namespace Customer.API.Test.v1
             });
             _mapper = mockMapper.CreateMapper();
         }
+
         [Fact]
         public async Task GetAllCusotmer_testAsync()
         {
@@ -61,3 +62,4 @@ namespace Customer.API.Test.v1
        
     }
 }
+
