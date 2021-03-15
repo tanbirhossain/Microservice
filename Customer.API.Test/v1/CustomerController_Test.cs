@@ -61,7 +61,15 @@ namespace Customer.API.Test.v1
             var expected = customerMockData.Name;
             var actual = customerVM.Name;
             Assert.Equal(expected, actual);
-        } 
+        }
+        [Fact]
+        public void CI_test()
+        {
+            // arrange
 
+            // mock object
+            
+            Assert.Equal(1, 2);
+        }
     }
 }
