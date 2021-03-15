@@ -2,9 +2,20 @@ name: cutomer-api
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+    - master
+    
+    paths:
+    - Customer.API/**
+    - .github/workflows/customer-api.yml
+  
   pull_request:
-    branches: [ master ]
+    branches:
+    - master
+    
+    paths:
+    - Customer.API/**
+    - .github/workflows/customer-api.yml
 
 jobs:
   build:
