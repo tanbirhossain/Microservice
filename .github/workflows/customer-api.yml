@@ -28,10 +28,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - run:  cd Customer.API
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Microservice.sln
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./Customer.API
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./Customer.API.Test
