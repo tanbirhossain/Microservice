@@ -28,6 +28,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
+    - run:  cd Customer.API
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
