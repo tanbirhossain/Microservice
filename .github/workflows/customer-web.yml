@@ -20,6 +20,7 @@ jobs:
    
   build:
 
+    #runs-on: self-hosted
     runs-on: ubuntu-latest
 
     steps:
@@ -33,7 +34,7 @@ jobs:
       run: dotnet build
       working-directory: ./Customer.WEB
     - name: Publish
-      run: dotnet publish --configuration Release
+      run: dotnet publish --configuration Release --output ./publish
       working-directory: ./Customer.WEB
       
       
