@@ -3,10 +3,10 @@ name: cutomer-api
 on:
   push:
     branches: 
-    - dev
+    - develop
   pull_request:
     branches:
-    - dev
+    - develop
   workflow_dispatch:
     inputs:
       logLevel:
