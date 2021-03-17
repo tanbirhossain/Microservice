@@ -40,8 +40,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - CustomerService__ApiURL=http://customer.api
-
+        
 
 volumes:
   sqlserverdata:
     #external: true   
+
+    #external resource
