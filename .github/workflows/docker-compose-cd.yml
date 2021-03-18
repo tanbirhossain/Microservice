@@ -1,4 +1,4 @@
-name: docker-compose-ci
+name: docker-compose-cd
 
 on: 
   push:
