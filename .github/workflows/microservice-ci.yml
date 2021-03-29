@@ -1,9 +1,9 @@
-name: docker-compose-ci
+name: microservice-ci
 
 on: 
-  push:
-    branches: 
-    - master
+  #push:
+  #  branches: 
+  #  - master
   #pull_request:
     #branches:
     #- master
@@ -21,11 +21,12 @@ jobs:
 
     #runs-on: ubuntu-latest
     runs-on: self-hosted
+
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+      - name: Build the docker compose
         run: docker-compose build
-      - name: Up Docker Compose
+      - name: publish the docker compose
         run: docker-compose up -d
       - name: check running images
         run: docker images
