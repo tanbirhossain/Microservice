@@ -9,7 +9,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_PID=Developer
-      - SA_PASSWORD=8jkGh47hnDw89Haq8LN2
+      - SA_PASSWORD=Pass@word
     ports:
       - "1435:1433"
 
@@ -25,7 +25,7 @@ services:
       - "5100:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=8jkGh47hnDw89Haq8LN2;
+      - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=Pass@word;
   
   customer.web:
     image: customerweb:latest
@@ -47,3 +47,5 @@ volumes:
     #external: true   
 
     #external resource
+
+    
