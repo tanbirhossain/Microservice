@@ -12,11 +12,19 @@ namespace Customer.API.IOC
     {
         public static void IOCBuild(this IServiceCollection services)
         {
+            // Service
             services.AddTransient<ICustomerService, CustomerService.API.Service.CustomerService>();
+            services.AddTransient<ISeedService, CustomerSeedService>();
+            services.AddTransient<ILoggingService, LoggingService>();
+            
+            
+            // Repository
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<ISeedRepository, CustomerDBSeedRepository>();
-            services.AddTransient<ISeedService, CustomerSeedService>();
+
+
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
 
             // cutomer handler
             //services.AddTransient<IAddCustomerCommandHandler, AddCustomerCommandHandler>();

@@ -14,6 +14,15 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      
+      #namem: http
+      #new: service
+      #grow: grownservice.http.tcp.8080.port.application.
+      #names: application
+      #as-job: home.name.game.sundar.jibon.name.dimon.jibon.shomossha
+      #pi-job: service.host.new.pi-job.ajkei shob up dia dei. video shoho. taile boost korlw kew duklew dekhte parbo video
+
+
   selector:
     app: {{ template "customerapi.name" . }}
     release: {{ .Release.Name }}

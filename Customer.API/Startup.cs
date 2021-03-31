@@ -16,7 +16,7 @@ using Customer.API.IOC;
 using System.Reflection;
 using MediatR;
 namespace CustomerService.API
-{
+{                                   
     public class Startup
     {
         public Startup(IConfiguration configuration)
