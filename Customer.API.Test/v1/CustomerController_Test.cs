@@ -2,6 +2,7 @@
 using Customer.API.Controllers;
 using Customer.API.Database;
 using Customer.API.Mapper;
+using Customer.API.Services;
 using Customer.API.ViewModel;
 using CustomerService.API.Repository;
 using CustomerService.API.Service;
@@ -14,7 +15,9 @@ namespace Customer.API.Test.v1
 {
     public class CustomerController_Test
     {
-       private IMapper _mapper;
+        private readonly IMapper _mapper;
+        private Mock<ILoggingService> _loggerMock;
+        private Mock<ICustomerRepository> _customerRepoMock;
         public CustomerController_Test()
         {
             // auto mapper configuration
@@ -23,6 +26,8 @@ namespace Customer.API.Test.v1
                 cfg.AddProfile(new AutomapperProfile());
             });
             _mapper = mockMapper.CreateMapper();
+            _loggerMock = new Mock<ILoggingService>();
+            _customerRepoMock = new Mock<ICustomerRepository>();
         }
 
         [Fact]
@@ -30,8 +35,6 @@ namespace Customer.API.Test.v1
         {
             // arrange
 
-            // mock object
-            var customerRepoMock = new Mock<ICustomerRepository>();
             // mock data
             var customerMockData = new tbl_Customer
             {
@@ -39,10 +42,10 @@ namespace Customer.API.Test.v1
                 Name = "Kashem",
                 DOB = null
             };
-            customerRepoMock.Setup(e => e.GetById(2)).ReturnsAsync(customerMockData);
+            _customerRepoMock.Setup(e => e.GetById(2)).ReturnsAsync(customerMockData);
 
 
-            ICustomerService _customerSevice = new CustomerService.API.Service.CustomerService(_mapper, customerRepoMock.Object);
+            ICustomerService _customerSevice = new CustomerService.API.Service.CustomerService(_loggerMock.Object, _mapper, _customerRepoMock.Object);
             var controller = new CustomerController(_customerSevice);
 
 
@@ -59,7 +62,7 @@ namespace Customer.API.Test.v1
             var actual = customerVM.Name;
             Assert.Equal(expected, actual);
         }
-       
+
     }
 }
 

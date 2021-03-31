@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Customer.API.Database;
+using Customer.API.Services;
 using Customer.API.ViewModel;
 using CustomerService.API.Repository;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace CustomerService.API.Service
     }
     public class CustomerService : ICustomerService
     {
+        private readonly ILoggingService _logger;
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
 
-        public CustomerService(IMapper mapper, ICustomerRepository customerRepository)
+        public CustomerService(ILoggingService logger, IMapper mapper, ICustomerRepository customerRepository)
         {
+            _logger = logger;
             _mapper = mapper;
             _customerRepository = customerRepository;
         }
@@ -41,6 +44,7 @@ namespace CustomerService.API.Service
         public async Task<List<CustomerViewModel>> GetCustomers()
         {
             var result = _mapper.Map<List<CustomerViewModel>>(await _customerRepository.GetCustomers());
+            _logger.LogInformation("Total Customers : {0}", result.Count);
             return result;
         }
 
