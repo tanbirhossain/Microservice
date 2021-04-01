@@ -1,0 +1,8 @@
+# Inline command
+
+## Build Image 
+# docker build -t customerweb:v1 . -f Customer.WEB/Dockerfile  
+
+## Create Cluster
+# docker run -p 32702:80 -p 32703:443 customerweb:v1
+ 

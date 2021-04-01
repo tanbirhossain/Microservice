@@ -2,10 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: customer-api-deployment
+  namespace: microservice
 spec:
   selector:
     matchLabels:
       app: customer-api
+  replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -13,10 +17,24 @@ spec:
     spec:
       containers:
       - name: customer-api
-        image: microservice/customer-api:v1
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        image: ovibhuiyan43/customer-api:v1
         ports:
         - containerPort: 80
+        env:
+          - name: ConnectionStrings__CustomerDBConnection
+            value: Server=192.168.0.250,1435;Database=CustomerDB;user id=sa;password=Pass@word;
+      restartPolicy: Always   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: customer-api
+  ports:
+  - name: http-5100
+    port: 5100 # extarnal port
+    targetPort: 80 #internal port
+

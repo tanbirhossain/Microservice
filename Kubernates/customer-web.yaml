@@ -2,12 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: customer-web-deployment
-  # namespace: microservice
+  namespace: microservice
 spec:
   selector:
     matchLabels:
       app: customer-web
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,28 +21,17 @@ spec:
       containers:
       - name: customer-web
         image: ovibhuiyan43/customer-web:v1
-        # imagePullPolicy: Always
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        # resources:
+        #   limits:
+        #     memory: "128Mi"
+        #     cpu: "500m"
         ports:
         - containerPort: 80
-        # env:
-        #   - name: CustomerService__ApiURL
-        #     value: Customer-api-service
-          
-        livenessProbe:
-          httpGet:
-            path: /health/live
-            port: 80
-        readinessProbe:
-          httpGet:
-            path: /health/ready
-            port: 80
-        # restartPolicy: Always
-
-            
+        env:
+          - name: CustomerService__ApiURL
+            value: "http://customer-api-service"
+            # value: "http://192.168.0.250:5100"
+      restartPolicy: Always   
 ---
 apiVersion: v1
 kind: Service
@@ -54,30 +43,6 @@ spec:
     app: customer-web
   ports:
   - name: http-6100
-    port: 6100
-    targetPort: 80
+    port: 6100 # extarnal port
+    targetPort: 80 #internal port
 
-##commands
-# - Create namespase
-#   kubectl create namespace microservice
-
-# - apply deployment under the namespace
-#   kubectl -n microservice apply -f .\kubernates\customer-web.yaml
-
-# - get deployment under the the namespace
-#   kubectl get deploy -n microservice
-
-# - get pods under the the namespace
-#   kubectl get pods -n microservice 
-
-# - specific cluster log
-#   kubectl -n microservice logs <deploy name>
-
-# - all name namespace
-#   kubectl get pods --all-namespaces
-
-# Logs
-# kubectl -n microservice logs -p  customer-web-deployment-669cddcdf-j9w4q
-
-# Remove Deployment
-# kubectl delete deploy customer-web-deployment -n microservice

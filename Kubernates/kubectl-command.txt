@@ -1,0 +1,29 @@
+##commands
+# - Create namespase
+#   kubectl create namespace microservice
+
+# - apply deployment under the namespace
+#   kubectl -n microservice apply -f .\kubernates\customer-web.yaml
+#   kubectl -n microservice apply -f .\kubernates\customer-api.yaml
+#   kubectl -n microservice apply -f .\kubernates\sqlserver.yaml
+
+# - get deployment under the the namespace
+#   kubectl get deploy -n microservice
+
+# - get pods under the the namespace
+#   kubectl get pods -n microservice 
+
+# - specific cluster log
+#   kubectl -n microservice logs <deploy name>
+
+# - all name namespace
+#   kubectl get pods --all-namespaces
+
+# Logs
+# kubectl -n microservice logs customer-web-deployment-59997db8d-9z6cf
+# kubectl -n microservice logs sqlserver-deployment-88c884dbd-p44z9
+
+# Remove Deployment
+# kubectl delete deploy customer-web-deployment -n microservice
+# kubectl delete deploy customer-api-deployment -n microservice
+# kubectl delete deploy sqlserver-deployment -n microservice
