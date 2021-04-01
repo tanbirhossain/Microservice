@@ -13,8 +13,8 @@ services:
     ports:
       - "1435:1433"
 
-  customer.api:
-    image: customerapi:latest
+  customer-api:
+    image: ovibhuiyan43/customer-api:v1
     build:
       context: .
       dockerfile: Customer.API/Dockerfile
@@ -27,19 +27,19 @@ services:
       - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__CustomerDBConnection=Server=sqlserver;Database=CustomerDB;user id=sa;password=Pass@word;
   
-  customer.web:
-    image: customerweb:latest
+  customer-web:
+    image: ovibhuiyan43/customer-web:v1
     build:
       context: .
       dockerfile: Customer.WEB/Dockerfile
     depends_on:
-      - customer.api
+      - customer-api
     ports:
-      - "6100:80"
-    restart: on-failure
+      - "6110:80"
+    restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - CustomerService__ApiURL=http://customer.api
+      - CustomerService__ApiURL=http://customer-api
         
 
 volumes:

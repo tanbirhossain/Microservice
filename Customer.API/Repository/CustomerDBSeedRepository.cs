@@ -63,7 +63,10 @@ namespace Customer.API.Repository
                 // Look for any students.
                 if (context.tbl_Customers.Any())
                 {
+
+                    Console.WriteLine(" >>>>  Database already exists - Completed  Database migration  <<<<<");
                     return;   // DB has been seeded
+
                 }
 
                 var result = context.tbl_Customers.Add(
@@ -75,11 +78,11 @@ namespace Customer.API.Repository
             }
             catch (Exception ex)
             {
-                Console.WriteLine(" >>>>  EXception  <<<<<"+ ex);
+                Console.WriteLine(" >>>>  EXception  <<<<<" + ex);
 
                 throw;
             }
-            
+
 
             //Console.WriteLine(" >>>>  Completed  Database migration  <<<<<");
         }
