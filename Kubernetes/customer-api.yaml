@@ -18,11 +18,15 @@ spec:
       containers:
       - name: customer-api
         image: ovibhuiyan43/customer-api:v1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: 80
         env:
           - name: ConnectionStrings__CustomerDBConnection
-            value: Server=192.168.0.250,1435;Database=CustomerDB;user id=sa;password=Pass@word;
+            value: Server=sqlserver-service,1435;Database=CustomerDB;user id=sa;password=Pass@word;
       restartPolicy: Always   
 ---
 apiVersion: v1

@@ -27,8 +27,6 @@ namespace Customer.WEB.Controllers
             return View(result);
         }
 
-
-
         // GET: CustomerController/Create
         public ActionResult Create()
         {

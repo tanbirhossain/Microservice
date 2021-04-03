@@ -21,16 +21,15 @@ spec:
       containers:
       - name: customer-web
         image: ovibhuiyan43/customer-web:v1
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: 80
         env:
           - name: CustomerService__ApiURL
-            value: "http://customer-api-service"
-            # value: "http://192.168.0.250:5100"
+            value: http://customer-api-service:5100
       restartPolicy: Always   
 ---
 apiVersion: v1
