@@ -1,6 +1,6 @@
-  
+
 echo "====================="
-echo "====== deploy ======"
+echo "====== deploy ======="
 echo "====================="
 
 kubectl -n microservice apply -f .\deployment\sqlserver.yaml
