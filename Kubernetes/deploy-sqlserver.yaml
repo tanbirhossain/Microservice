@@ -1,12 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: sqlserver-deployment
-  namespace: microservice
+  name: sqlserver-statefulset
 spec:
   selector:
     matchLabels:
       app: sqlserver
+  serviceName: "sqlserver-service"
   replicas: 1
   template:
     metadata:
@@ -16,10 +16,6 @@ spec:
       containers:
       - name: sqlserver
         image: mcr.microsoft.com/mssql/server:2019-latest
-        # resources:
-        #   limits:
-        #     memory: "128Mi"
-        #     cpu: "500m"
         ports:
         - containerPort: 1433
         env:
@@ -29,20 +25,25 @@ spec:
             value: "Developer"
           - name: SA_PASSWORD
             value: "Pass@word"
-          
+        volumeMounts:
+        - name: sqlserver-data
+          mountPath: /var/opt/mssql
+  volumeClaimTemplates:
+  - metadata:
+      name: sqlserver-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sqlserver-service
 spec:
-  type: LoadBalancer
   selector:
     app: sqlserver
   ports:
-  - name: http-1435
-    port: 1435 # extarnal port
-    targetPort: 1433 #internal port
-
-
-# ---  have to create volume
+  - port: 1435
+    targetPort: 1433

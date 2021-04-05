@@ -1,26 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer-web-deployment
+  name: customer-api-deployment
   namespace: microservice
 spec:
   selector:
     matchLabels:
-      app: customer-web
+      app: customer-api
   replicas: 1
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+    type: Recreate
   template:
     metadata:
       labels:
-        app: customer-web
+        app: customer-api
     spec:
       containers:
-      - name: customer-web
-        image: ovibhuiyan43/customer-web:v1
+      - name: customer-api
+        image: ovibhuiyan43/customer-api:v1
         resources:
           limits:
             memory: "128Mi"
@@ -28,20 +25,21 @@ spec:
         ports:
         - containerPort: 80
         env:
-          - name: CustomerService__ApiURL
-            value: http://customer-api-service:5100
+          - name: ConnectionStrings__CustomerDBConnection
+            value: Server=sqlserver-service,1435;Database=CustomerDB;user id=sa;password=Pass@word;
       restartPolicy: Always   
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer-web-service
+  name: customer-api-service
+  namespace: microservice
 spec:
   type: LoadBalancer
   selector:
-    app: customer-web
+    app: customer-api
   ports:
-  - name: http-6100
-    port: 6100 # extarnal port
+  - name: http-5100
+    port: 5100 # extarnal port
     targetPort: 80 #internal port
 

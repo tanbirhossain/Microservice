@@ -1,4 +1,4 @@
-##commands
+## Commands
 # - Create namespase
 #   kubectl create namespace microservice
 
@@ -20,8 +20,8 @@
 #   kubectl get pods --all-namespaces
 
 # Logs
-# kubectl -n microservice logs customer-web-deployment-59997db8d-9z6cf
-# kubectl -n microservice logs sqlserver-deployment-88c884dbd-p44z9
+# kubectl -n microservice logs customer-web-deployment-59997db8d-9z6cf 
+# kubectl -n microservice logs sqlserver-deployment-88c884dbd-p44z9 -f   
 
 # Remove Deployment
 # kubectl delete deploy customer-web-deployment -n microservice
