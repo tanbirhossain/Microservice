@@ -1,8 +1,11 @@
 # Mssql Database
+  - sqlserver-service,1435
   - localhost,1435
 
 # Customer api
+  - customer-api-service:5100
   - http://localhost:5100
 
 # Customer UI
+  - customer-web-service:6100
   - http://localhost:6100
