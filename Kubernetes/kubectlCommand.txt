@@ -27,3 +27,5 @@
 # kubectl delete deploy customer-web-deployment -n microservice
 # kubectl delete deploy customer-api-deployment -n microservice
 # kubectl delete deploy sqlserver-deployment -n microservice
+
+# Kuberenetes
