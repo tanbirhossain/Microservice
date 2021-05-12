@@ -35,3 +35,5 @@ ENTRYPOINT ["dotnet", "Customer.API.dll"]
 
 ## Create Cluster
 # docker run -p 32789:80 customerapi:v1
+
+

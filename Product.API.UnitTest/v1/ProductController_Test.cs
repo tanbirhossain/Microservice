@@ -27,7 +27,7 @@ namespace Product.API.UnitTest.v1
             var productRequest = new AddProductRequest
             {
                 Name = "ovi",
-                Quantity = 5
+                Quantity = 0
             };
             var productMockResult = new AddProductResponse
             {
